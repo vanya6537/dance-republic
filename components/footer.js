@@ -64,26 +64,26 @@ export default withPure(() => (
             <div>
               <h4 className="fw5">General resources</h4>
               <p>
-                <Link href="http://excavo.io" prefetch={false}>
+                <Link href="https://github.com/vanya6537/dance-republic" prefetch={false}>
                   <a>Main Website</a>
                 </Link>
               </p>
               <p>
-                <Link href="http://quiz.excavo.io" prefetch={false}>
-                  <a>Excavo Trading Algorithm</a>
+                <Link href="https://github.com/vanya6537/dance-republic" prefetch={false}>
+                  <a>Instagram</a>
                 </Link>
               </p>
             </div>
             <div>
               <h4 className="fw5">More</h4>
               <p>
-                <a href="https://github.com/vanya6537/excavo" rel="noopener noreferrer" target="_blank">
+                <a href="https://github.com/vanya6537/dance-republic" rel="noopener noreferrer" target="_blank">
                   GitHub
                 </a>
               </p>
               <p>
                 <a
-                    href="https://github.com/vanya6537/excavo/releases"
+                    href="https://github.com/vanya6537/dance-republic/releases"
                     rel="noopener noreferrer"
                     target="_blank"
                 >
@@ -97,7 +97,7 @@ export default withPure(() => (
               </p>
             </div>
             <div>
-              <h4 className="fw5">About Vercel</h4>
+              <h4 className="fw5">About {ORG_NAME}</h4>
               <p>
                 <a
                     href={`https://vercel.com/oss?utm_source=next-site&utm_medium=footer&utm_campaign=next-website`}
@@ -108,7 +108,7 @@ export default withPure(() => (
                 </a>
               </p>
               <p>
-                <a href="https://github.com/vercel" rel="noopener noreferrer" target="_blank">
+                <a href="https://github.com/vanya6537/dance-republic" rel="noopener noreferrer" target="_blank">
                   GitHub
                 </a>
               </p>
