@@ -19,7 +19,7 @@ function Navbar() {
         <Container center>
             <SkipNavLink tabIndex="0"/>
             <h1 className="visually-hidden" aria-hidden="true">
-                Next.js
+                {PLATFORM_NAME}
             </h1>
             <nav className="f-reset">
                 <div className="mobile-top">
@@ -31,8 +31,8 @@ function Navbar() {
 
                     <div className="icons">
                         <a
-                            href="https://github.com/vanya6537/excavo"
-                            aria-label="Next.js on GitHub"
+                            href="https://github.com/vanya6537/dance-republic"
+                            aria-label="Dance Republic on GitHub"
                             rel="noopener noreferrer"
                             target="_blank"
                             className="icon mute"
@@ -77,7 +77,7 @@ function Navbar() {
                         </div>
                     )}
                     <a
-                        href="https://github.com/vanya6537/excavo"
+                        href="https://github.com/vanya6537/dance-republic"
                         aria-label="Project on GitHub"
                         rel="noopener noreferrer"
                         target="_blank"
