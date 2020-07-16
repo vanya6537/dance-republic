@@ -9,7 +9,7 @@ import Container from './container';
 import GitHubLogo from './icons/github';
 import HeaderFeedback from './header-feedback';
 import {PLATFORM_NAME} from "../lib/constants";
-
+import Logo from "./logo"
 
 function Navbar() {
     const {route} = useRouter();
@@ -25,7 +25,7 @@ function Navbar() {
                 <div className="mobile-top">
                     <Link href="/">
                         <a className="mobile-logo" title="Go to the homepage" style={{color: "black"}}>
-                            <h1>{PLATFORM_NAME}</h1>
+                            <Logo/>
                         </a>
                     </Link>
 
@@ -44,8 +44,8 @@ function Navbar() {
 
                 <div className="links">
                     <Link href="/">
-                        <a className="logo" style={{color: "black"}}>
-                            <h1>{PLATFORM_NAME}</h1>
+                        <a className="logo">
+                            <Logo />
                         </a>
                     </Link>
                     <Link href='/posts/first-post'>
