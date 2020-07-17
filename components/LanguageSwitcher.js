@@ -18,7 +18,7 @@ const LanguageSwitcher = () => {
                 title="Second Post"
                 onClick={() => setLanguage(nextLanguage)}
             >
-                path: {router.pathname}
+                {nextLanguage.toUpperCase()}
             </a>
 
         </Link>
