@@ -68,7 +68,7 @@ function Navbar() {
                             })}
                             title="First Post"
                         >
-                            {language === LANGUAGES[0] ? 'First Post' : 'Fin First Post'}
+                            {['First Post','Fin First Post','Первая страница'][LANGUAGES.indexOf(language)]}
                         </a>
 
                     </Link>
@@ -79,7 +79,7 @@ function Navbar() {
                             })}
                             title="Second Post"
                         >
-                            {language === LANGUAGES[0] ? 'Second Post' : 'Fin Second Post'}
+                            {['Second Post','Fin Second Post','Вторая страница'][LANGUAGES.indexOf(language)]}
                         </a>
 
                     </Link>
