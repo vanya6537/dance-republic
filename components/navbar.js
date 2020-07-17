@@ -5,15 +5,18 @@ import {useAmp} from 'next/amp';
 import cn from 'classnames';
 import {SkipNavLink} from '@reach/skip-nav';
 import Container from './container';
-
+import LanguageSwitcher from "./LanguageSwitcher";
 import GitHubLogo from './icons/github';
 import HeaderFeedback from './header-feedback';
-import {PLATFORM_NAME} from "../lib/constants";
+import {LANGUAGES, PLATFORM_NAME} from "../lib/constants";
 import Logo from "./logo"
-
+import LanguageContext from "../components/LanguageContext";
+import {useContext} from "react";
+import {COLOR_CODE_RED} from "./css-config";
 function Navbar() {
     const {route} = useRouter();
     const isAmp = useAmp();
+    const {language, setLanguage} = useContext(LanguageContext);
 
     return (
         <Container center>
@@ -23,7 +26,7 @@ function Navbar() {
             </h1>
             <nav className="f-reset">
                 <div className="mobile-top">
-                    <Link href="/">
+                    <Link href={"/"+language}>
                         <a className="mobile-logo" title="Go to the homepage" style={{color: "black"}}>
                             <Logo/>
                         </a>
@@ -43,34 +46,34 @@ function Navbar() {
                 </div>
 
                 <div className="links">
-                    <Link href="/">
+                    <Link href={"/"+language}>
                         <a className="logo">
                             <Logo />
                         </a>
                     </Link>
-                    <Link href='/posts/first-post'>
+                    <Link href={'/'+language+'/posts/first-post'}>
                         <a
                             className={cn('mute', {
                                 selected: route.startsWith('/showcase')
                             })}
                             title="First Post"
                         >
-                            First Post
+                            {language === LANGUAGES[0] ? 'First Post' : 'Fin First Post'}
                         </a>
 
                     </Link>
-                    <Link href='/posts/second-post'>
+                    <Link href={'/'+language+'/posts/second-post'}>
                         <a
                             className={cn('mute', {
                                 selected: route.startsWith('/showcase')
                             })}
                             title="Second Post"
                         >
-                            Second Post
+                            {language === LANGUAGES[0] ? 'Second Post' : 'Fin Second Post'}
                         </a>
 
                     </Link>
-
+                    <LanguageSwitcher/>
                     {!isAmp && (
                         <div className="header-feedback">
                             <HeaderFeedback/>
@@ -111,7 +114,7 @@ function Navbar() {
         }
 
         .links a:hover {
-          color: #000;
+          color: ${COLOR_CODE_RED};
         }
 
         .links a.selected {
