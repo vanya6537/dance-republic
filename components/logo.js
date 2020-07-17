@@ -3,14 +3,14 @@ import withPure from './hoc/pure';
 export default withPure(({size}) => (
     <svg
         // width={size || 82}
-        height={size || 50}
+        height={size || 90}
         viewBox="0 0 708.66 288.9"
         version="1.1"
         xmlnsXlink="http://www.w3.org/2000/xlink"
         x="0px" y="0px"
         style={{
             // visually centering
-            transform: 'translateX(-4%)',
+            transform: 'translateX(-4.2%)',
             shapeRendering: 'auto',
             enableBackground: 'new 0 0 708.66 288.9'
         }}
