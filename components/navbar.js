@@ -5,18 +5,28 @@ import {useAmp} from 'next/amp';
 import cn from 'classnames';
 import {SkipNavLink} from '@reach/skip-nav';
 import Container from './container';
-import LanguageSwitcher from "./LanguageSwitcher";
 import GitHubLogo from './icons/github';
 import HeaderFeedback from './header-feedback';
 import {LANGUAGES, PLATFORM_NAME} from "../lib/constants";
 import Logo from "./logo"
-import LanguageContext from "../components/LanguageContext";
-import {useContext} from "react";
 import {COLOR_CODE_RED} from "./css-config";
+
 function Navbar() {
-    const {route} = useRouter();
+    const router = useRouter();
     const isAmp = useAmp();
-    const {language, setLanguage} = useContext(LanguageContext);
+    const language = router.pathname.split('/')[1];
+    const langLinks = LANGUAGES.map(lang => {
+        return <Link href={'/' + [lang, ...router.pathname.split('/').slice(2)].join('/')}>
+            <a
+                className={cn('mute', {
+                    selected: router.route.startsWith('/showcase')
+                })}
+                title="Second Post"
+            >
+                {lang.toUpperCase()}
+            </a>
+        </Link>
+    })
 
     return (
         <Container center>
@@ -26,7 +36,7 @@ function Navbar() {
             </h1>
             <nav className="f-reset">
                 <div className="mobile-top">
-                    <Link href={"/"+language}>
+                    <Link href={"/" + language}>
                         <a className="mobile-logo" title="Go to the homepage" style={{color: "black"}}>
                             <Logo/>
                         </a>
@@ -46,15 +56,15 @@ function Navbar() {
                 </div>
 
                 <div className="links">
-                    <Link href={"/"+language}>
+                    <Link href={"/" + language}>
                         <a className="logo">
-                            <Logo />
+                            <Logo/>
                         </a>
                     </Link>
-                    <Link href={'/'+language+'/posts/first-post'}>
+                    <Link href={'/' + language + '/posts/first-post'}>
                         <a
                             className={cn('mute', {
-                                selected: route.startsWith('/showcase')
+                                selected: router.route.startsWith('/showcase')
                             })}
                             title="First Post"
                         >
@@ -62,10 +72,10 @@ function Navbar() {
                         </a>
 
                     </Link>
-                    <Link href={'/'+language+'/posts/second-post'}>
+                    <Link href={'/' + language + '/posts/second-post'}>
                         <a
                             className={cn('mute', {
-                                selected: route.startsWith('/showcase')
+                                selected: router.route.startsWith('/showcase')
                             })}
                             title="Second Post"
                         >
@@ -73,7 +83,8 @@ function Navbar() {
                         </a>
 
                     </Link>
-                    <LanguageSwitcher/>
+                    {langLinks}
+
                     {!isAmp && (
                         <div className="header-feedback">
                             <HeaderFeedback/>
@@ -194,6 +205,9 @@ function Navbar() {
           //   display: none;
           // }
         // }
+         .lang-links > a {
+                margin: 10px;
+            }
       `}</style>
         </Container>
     );
