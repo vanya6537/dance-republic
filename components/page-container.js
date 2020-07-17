@@ -1,6 +1,13 @@
 import Head from 'next/head';
 import Router from 'next/router';
-import {FONT_FAMILY_SANS} from './css-config';
+import {
+    FONT_FAMILY_SANS,
+    COLOR_CODE_GREY,
+    COLOR_CODE_RED,
+    COLOR_CODE_WHITE,
+    COLOR_CODE_DARK,
+    COLOR_CODE_BLACK
+} from './css-config';
 import {ORG_NAME} from "../lib/constants";
 
 Router.events.on('routeChangeComplete', url => {
@@ -56,11 +63,11 @@ export default function PageContainer({title, description, children}) {
           html,
           body {
             background-color: #fff;
-            color: #111;
+            color: ${COLOR_CODE_DARK};
           }
           ::selection {
             background-color: #0070f3;
-            color: #fff;
+            color: ${COLOR_CODE_BLACK};
           }
           [role='grid']:focus {
             outline: none;
@@ -74,12 +81,12 @@ export default function PageContainer({title, description, children}) {
             margin: 0;
           }
           a {
-            color: #0074de;
+            color: ${COLOR_CODE_RED};
             text-decoration: none;
             transition: color 0.2s ease;
           }
           a:hover {
-            color: #68b5fb;
+            color: ${COLOR_CODE_DARK};
           }
           code {
             font-size: 0.9em;
