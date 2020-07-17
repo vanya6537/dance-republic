@@ -8,11 +8,9 @@ export default function FirstPost() {
         <Page title={`Second Post`} description={'Hey there!'}>
             <Container>
                 <h1>РУССКИЙ ТЕКСТ</h1>
-                <h2>
-                    <Link href="/">
-                        <a>ВЕРНУТЬСЯ ДОМОЙ</a>
-                    </Link>
-                </h2>
+                <Link href="/ru">
+                    <a>ВЕРНУТЬСЯ ДОМОЙ</a>
+                </Link>
                 <p>
                     This is Second Post!
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mi odio, congue vel mi ac,

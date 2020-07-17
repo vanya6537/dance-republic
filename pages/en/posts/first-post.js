@@ -8,11 +8,9 @@ export default function FirstPost() {
         <Page title={`First Post`} description={'Hey there!'}>
             <Container>
                 <h1>First Post</h1>
-                <h2>
-                    <Link href="/">
-                        <a>Back to home</a>
-                    </Link>
-                </h2>
+                <Link href="/en">
+                    <a>Back to home</a>
+                </Link>
                 <p>
                     This is First Post!
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mi odio, congue vel mi ac,
