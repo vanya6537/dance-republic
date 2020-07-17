@@ -1,20 +1,22 @@
 import Container from "../components/container";
 import Page from '../components/page';
 import Footer from '../components/footer';
+import {useRouter} from "next/router";
+import React from 'react'
 
-export default function IndexPage() {
-    return (
-        <Page title={`Next.js Showcase project by Netsl:)`} description={'Hey there!'}>
-            <Container>
-                <h1>HEY THERE</h1>
-                <p>This is test project.</p>
-                <p>In future it will be production version of Excavo Academy web application.</p>
-                <p>Now it is sample.</p>
-            </Container>
-            <Footer/>
-
-        </Page>
-
-
-    )
+function redirect (ctx, path) {
+    if (ctx.res) {
+        ctx.res.writeHead(302, {Location: path})
+        ctx.res.end()
+    } else {
+        document.location.pathname = path
+    }
+}
+export default class Index extends React.Component {
+    static async getInitialProps(ctx) {
+        redirect(ctx,'/en')
+    }
+    render() {
+        null
+    }
 }
