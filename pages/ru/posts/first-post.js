@@ -1,16 +1,16 @@
 import Link from 'next/link'
-import Container from "../../components/container";
-import Page from "../../components/page";
-import Footer from "../../components/footer";
+import Container from "../../../components/container";
+import Page from "../../../components/page";
+import Footer from "../../../components/footer";
 
 export default function FirstPost() {
     return (
         <Page title={`First Post`} description={'Hey there!'}>
             <Container>
-                <h1>First Post</h1>
+                <h1>РУССКИЙ ТЕКСТ</h1>
                 <h2>
                     <Link href="/">
-                        <a>Back to home</a>
+                        <a>НА ГЛАВНУЮ</a>
                     </Link>
                 </h2>
                 <p>
