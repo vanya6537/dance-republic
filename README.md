@@ -1,3 +1,3 @@
-Check [DEMO](https://excavo.now.sh)
+Check [DEMO](https://dance-republic.vercel.app/en)
 
 Easily deployed with Vercel.
