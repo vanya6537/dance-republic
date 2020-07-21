@@ -3,11 +3,11 @@ import cn from 'classnames';
 
 import Nav from './navbar';
 
-const Header = ({sticky = true}) => {
+const Header = ({sticky = true,formState}) => {
     return (
         <>
             <header className={cn({sticky})}>
-                <Nav/>
+                <Nav formState={formState}/>
             </header>
 
             <style jsx>{`
