@@ -9,11 +9,12 @@ import {
     COLOR_CODE_BLACK
 } from './css-config';
 import {ORG_NAME} from "../lib/constants";
+import ContactForm from "../components/contact-form"
 
 Router.events.on('routeChangeComplete', url => {
 });
 
-export default function PageContainer({title, description, children}) {
+export default function PageContainer({title, description, formState, children}) {
     return (
         <div>
             <Head>
@@ -26,6 +27,7 @@ export default function PageContainer({title, description, children}) {
                 )}
             </Head>
             {children}
+            <ContactForm formState={formState}/>
             <style jsx global>
                 {`
           html {
@@ -164,10 +166,10 @@ export default function PageContainer({title, description, children}) {
             font-weight: 900;
           }
           .subtitle {
-            color: #696969;
+            color: ${COLOR_CODE_DARK};
           }
           .mute {
-            color: #696969;
+            color: ${COLOR_CODE_GREY};
           }
           .tc {
             text-align: center;

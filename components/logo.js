@@ -1,6 +1,6 @@
 import withPure from './hoc/pure';
 
-export default withPure(({size}) => (
+export default withPure(({size, ...props}) => (
     <svg
         // width={size || 82}
         height={size || 90}
@@ -13,7 +13,7 @@ export default withPure(({size}) => (
             transform: 'translateX(-4.2%)',
             shapeRendering: 'auto',
             enableBackground: 'new 0 0 708.66 288.9'
-        }}
+        }}{...props}
     >
         <style type="text/css">
             {`

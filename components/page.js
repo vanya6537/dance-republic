@@ -1,10 +1,13 @@
 import PageContainer from './page-container';
 import Header from './header';
+import {useState} from "react";
 
-export default function Page({title, description, sticky, isOldDocs, children}) {
+export default function Page({title, description, sticky, formState, isOldDocs, children}) {
+    // const [showModal, toggleModal] = useState(false);
+    // const formPageState = {showModal, toggleModal}
     return (
-        <PageContainer title={title} description={description}>
-            <Header sticky={sticky} isOldDocs={isOldDocs}/>
+        <PageContainer title={title} description={description} formState={formState}>
+            <Header sticky={sticky} isOldDocs={isOldDocs} formState={formState}/>
             {children}
         </PageContainer>
     );

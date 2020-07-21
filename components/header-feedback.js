@@ -9,262 +9,262 @@ import FeedbackContext from './feedback-context';
 import {FONT_FAMILY_SANS} from './css-config';
 
 const EMOJIS = new Map([
-  ['🤩', 'f929'],
-  ['🙂', 'f600'],
-  ['😕', 'f615'],
-  ['😭', 'f62d']
+    ['🤩', 'f929'],
+    ['🙂', 'f600'],
+    ['😕', 'f615'],
+    ['😭', 'f62d']
 ]);
 
 // gets the emoji from the code
 let EMOJI_CODES = null;
 
 function getEmoji(code) {
-  if (code === null) return code;
+    if (code === null) return code;
 
-  if (EMOJI_CODES === null) {
-    EMOJI_CODES = new Map([...EMOJIS].map(([k, v]) => [v, k]));
-  }
-  return EMOJI_CODES.get(code);
+    if (EMOJI_CODES === null) {
+        EMOJI_CODES = new Map([...EMOJIS].map(([k, v]) => [v, k]));
+    }
+    return EMOJI_CODES.get(code);
 }
 
 class HeaderFeedback extends Component {
-  state = {
-    emoji: null,
-    loading: false,
-    focused: false,
-    success: false,
-    emojiShown: false,
-    errorMessage: null,
-    value: null
-  };
+    state = {
+        emoji: null,
+        loading: false,
+        focused: false,
+        success: false,
+        emojiShown: false,
+        errorMessage: null,
+        value: null
+    };
 
-  clearSuccessTimer = null;
+    clearSuccessTimer = null;
 
-  textAreaRef = null;
+    textAreaRef = null;
 
-  handleTextAreaRef = node => {
-    this.textAreaRef = node;
-  };
+    handleTextAreaRef = node => {
+        this.textAreaRef = node;
+    };
 
-  onFocus = () => {
-    this.setState({focused: true});
-  };
+    onFocus = () => {
+        this.setState({focused: true});
+    };
 
-  onEmojiShown = () => {
-    this.setState({emojiShown: true});
-  };
+    onEmojiShown = () => {
+        this.setState({emojiShown: true});
+    };
 
-  onEmojiHidden = () => {
-    this.setState({emojiShown: false});
-  };
+    onEmojiHidden = () => {
+        this.setState({emojiShown: false});
+    };
 
-  onEmojiSelect = emoji => {
-    this.setState({emoji});
-    if (this.textAreaRef) {
-      this.textAreaRef.focus();
-    }
-  };
-
-  onErrorDismiss = () => {
-    this.setState({errorMessage: null});
-  };
-
-  handleClickOutside = () => {
-    this.setState({focused: false});
-    this.textAreaRef.value = '';
-  };
-
-  onKeyDown = e => {
-    if (e.keyCode === 27) {
-      this.setState({focused: false});
-    }
-  };
-
-  onSubmit = () => {
-    const value = this.textAreaRef?.value.trim();
-
-    if (!value.length) {
-      this.setState({
-        errorMessage: "Your feedback can't be empty"
-      });
-      return;
-    }
-    if (value.split(' ').length < 2) {
-      this.setState({
-        errorMessage: 'Please use at least 2 words'
-      });
-      return;
-    }
-
-    this.setState({loading: true}, () => {
-      fetch('/api/feedback', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          url: window.location.toString(),
-          note: value,
-          emotion: getEmoji(this.state.emoji),
-          label: this.context?.label,
-          ua: `${this.props.uaPrefix || ''} + ${navigator.userAgent} (${
-              navigator.language || 'unknown language'
-          })`
-        })
-      })
-          .then(() => {
-            this.setState({loading: false, success: true});
-          })
-          .catch(err => {
-            this.setState({
-              loading: false,
-              errorMessage: err?.message || 'An error ocurred. Try again in a few minutes.'
-            });
-          });
-    });
-  };
-
-  handleChange = e => {
-    if (this.state.focused) {
-      this.setState({
-        value: e.target.value
-      });
-    }
-  };
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.focused) {
-      // textarea was hidden if we were showing an error message and
-      // now we hide it
-      if (prevState.errorMessage != null && this.state.errorMessage == null && this.textAreaRef) {
-        this.textAreaRef.focus();
-      }
-
-      if (!prevState.focused) {
-        window.addEventListener('keydown', this.onKeyDown);
-      }
-
-      // If a value exists, add it back to the textarea when focused
-      this.textAreaRef.value = this.state.value;
-    } else if (prevState.focused && this.textAreaRef) {
-      // needed for when we e.g.: unfocus based on pressing escape
-      this.textAreaRef.blur();
-
-      // Remove value visibly from textarea while it's unfocused
-      this.textAreaRef.value = '';
-
-      // if we unfocused and there was an error before,
-      // clear it
-      if (prevState.errorMessage && this.textAreaRef) {
-        this.setState({errorMessage: null}); // eslint-disable-line react/no-did-update-set-state
-      }
-
-      // if we had a success message
-      // clear it
-      if (prevState.success) {
-        this.setState({success: false}); // eslint-disable-line react/no-did-update-set-state
-      }
-
-      window.removeEventListener('keydown', this.onKeyDown);
-    }
-
-    if (this.state.success && this.textAreaRef) {
-      // forget about input state
-      this.textAreaRef.value = '';
-
-      // collapse in 5s
-      this.clearSuccessTimer = window.setTimeout(() => {
-        if (!document.hidden) {
-          this.setState({success: false});
+    onEmojiSelect = emoji => {
+        this.setState({emoji});
+        if (this.textAreaRef) {
+            this.textAreaRef.focus();
         }
-      }, 5000);
-    } else {
-      if (prevState.success) {
-        window.clearTimeout(this.clearSuccessTimer);
-        this.clearSuccessTimer = null;
-      }
+    };
 
-      if (prevState.success && this.state.focused) {
-        this.setState({focused: false}); // eslint-disable-line react/no-did-update-set-state
-      }
+    onErrorDismiss = () => {
+        this.setState({errorMessage: null});
+    };
+
+    handleClickOutside = () => {
+        this.setState({focused: false});
+        this.textAreaRef.value = '';
+    };
+
+    onKeyDown = e => {
+        if (e.keyCode === 27) {
+            this.setState({focused: false});
+        }
+    };
+
+    onSubmit = () => {
+        const value = this.textAreaRef?.value.trim();
+
+        if (!value.length) {
+            this.setState({
+                errorMessage: "Your feedback can't be empty"
+            });
+            return;
+        }
+        if (value.split(' ').length < 2) {
+            this.setState({
+                errorMessage: 'Please use at least 2 words'
+            });
+            return;
+        }
+
+        this.setState({loading: true}, () => {
+            fetch('/api/feedback', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    url: window.location.toString(),
+                    note: value,
+                    emotion: getEmoji(this.state.emoji),
+                    label: this.context?.label,
+                    ua: `${this.props.uaPrefix || ''} + ${navigator.userAgent} (${
+                        navigator.language || 'unknown language'
+                    })`
+                })
+            })
+                .then(() => {
+                    this.setState({loading: false, success: true});
+                })
+                .catch(err => {
+                    this.setState({
+                        loading: false,
+                        errorMessage: err?.message || 'An error ocurred. Try again in a few minutes.'
+                    });
+                });
+        });
+    };
+
+    handleChange = e => {
+        if (this.state.focused) {
+            this.setState({
+                value: e.target.value
+            });
+        }
+    };
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.focused) {
+            // textarea was hidden if we were showing an error message and
+            // now we hide it
+            if (prevState.errorMessage != null && this.state.errorMessage == null && this.textAreaRef) {
+                this.textAreaRef.focus();
+            }
+
+            if (!prevState.focused) {
+                window.addEventListener('keydown', this.onKeyDown);
+            }
+
+            // If a value exists, add it back to the textarea when focused
+            this.textAreaRef.value = this.state.value;
+        } else if (prevState.focused && this.textAreaRef) {
+            // needed for when we e.g.: unfocus based on pressing escape
+            this.textAreaRef.blur();
+
+            // Remove value visibly from textarea while it's unfocused
+            this.textAreaRef.value = '';
+
+            // if we unfocused and there was an error before,
+            // clear it
+            if (prevState.errorMessage && this.textAreaRef) {
+                this.setState({errorMessage: null}); // eslint-disable-line react/no-did-update-set-state
+            }
+
+            // if we had a success message
+            // clear it
+            if (prevState.success) {
+                this.setState({success: false}); // eslint-disable-line react/no-did-update-set-state
+            }
+
+            window.removeEventListener('keydown', this.onKeyDown);
+        }
+
+        if (this.state.success && this.textAreaRef) {
+            // forget about input state
+            this.textAreaRef.value = '';
+
+            // collapse in 5s
+            this.clearSuccessTimer = window.setTimeout(() => {
+                if (!document.hidden) {
+                    this.setState({success: false});
+                }
+            }, 5000);
+        } else {
+            if (prevState.success) {
+                window.clearTimeout(this.clearSuccessTimer);
+                this.clearSuccessTimer = null;
+            }
+
+            if (prevState.success && this.state.focused) {
+                this.setState({focused: false}); // eslint-disable-line react/no-did-update-set-state
+            }
+        }
     }
-  }
 
-  componentWillUnmount() {
-    if (this.clearSuccessTimer !== null) {
-      clearTimeout(this.clearSuccessTimer);
-      this.clearSuccessTimer = null;
+    componentWillUnmount() {
+        if (this.clearSuccessTimer !== null) {
+            clearTimeout(this.clearSuccessTimer);
+            this.clearSuccessTimer = null;
+        }
+
+        window.removeEventListener('keydown', this.onKeyDown);
     }
 
-    window.removeEventListener('keydown', this.onKeyDown);
-  }
+    render() {
+        const {className, open, ...props} = this.props;
+        const {focused} = this.state;
+        delete props.onFeedback;
 
-  render() {
-    const {className, open, ...props} = this.props;
-    const {focused} = this.state;
-    delete props.onFeedback;
-
-    return (
-        <ClickOutside
-            active={focused}
-            onClick={this.handleClickOutside}
-            render={({innerRef}) => (
-                <div
-                    ref={innerRef}
-                    title="Share any feedback about our products and services"
-                    className={cn(
-                        'geist-feedback-input',
-                        {
-                          focused: focused || open,
-                          error: this.state.errorMessage,
-                          loading: this.state.loading,
-                          success: this.state.success
-                        },
-                        className
-                    )}
-                    {...props}
-                >
-                  <div className="textarea-wrapper">
+        return (
+            <ClickOutside
+                active={focused}
+                onClick={this.handleClickOutside}
+                render={({innerRef}) => (
+                    <div
+                        ref={innerRef}
+                        title="Share any feedback about our products and services"
+                        className={cn(
+                            'geist-feedback-input',
+                            {
+                                focused: focused || open,
+                                error: this.state.errorMessage,
+                                loading: this.state.loading,
+                                success: this.state.success
+                            },
+                            className
+                        )}
+                        {...props}
+                    >
+                        <div className="textarea-wrapper">
               <textarea
                   ref={this.handleTextAreaRef}
-                  placeholder={focused ? '' : 'Feedback'}
+                  placeholder={focused ? '' : 'Telegram'}
                   onFocus={this.onFocus}
                   onKeyDown={e => {
-                    if (e.key === 'Enter' && e.metaKey) {
-                      this.onSubmit();
-                    }
+                      if (e.key === 'Enter' && e.metaKey) {
+                          this.onSubmit();
+                      }
                   }}
                   onChange={this.handleChange}
                   aria-label="Feedback input"
                   disabled={this.state.loading === true || this.state.errorMessage != null}
               />
 
-                    {this.state.errorMessage != null && (
-                        <div className="error-message">
-                          <span>{this.state.errorMessage}</span>
-                          <Button
-                              invert
-                              small
-                              onClick={e => {
-                                e.preventDefault();
-                                this.onErrorDismiss();
-                              }}
-                          >
-                            GO BACK
-                          </Button>
-                        </div>
-                    )}
+                            {this.state.errorMessage != null && (
+                                <div className="error-message">
+                                    <span>{this.state.errorMessage}</span>
+                                    <Button
+                                        invert
+                                        small
+                                        onClick={e => {
+                                            e.preventDefault();
+                                            this.onErrorDismiss();
+                                        }}
+                                    >
+                                        GO BACK
+                                    </Button>
+                                </div>
+                            )}
 
-                    {this.state.success && (
-                        <div className="success-message">
-                          <Checkmark size="2rem" className="checkmark"/>
-                          <p>Your feedback has been received!</p>
-                          <p>Thank you for your help.</p>
-                        </div>
-                    )}
+                            {this.state.success && (
+                                <div className="success-message">
+                                    <Checkmark size="2rem" className="checkmark"/>
+                                    <p>Your feedback has been received!</p>
+                                    <p>Thank you for your help.</p>
+                                </div>
+                            )}
 
-                    {this.state.errorMessage == null && !this.state.success && (
-                        <div className="controls">
+                            {this.state.errorMessage == null && !this.state.success && (
+                                <div className="controls">
                   <span className="emojis">
                     {focused ? (
                         <EmojiSelector
@@ -275,7 +275,7 @@ class HeaderFeedback extends Component {
                         />
                     ) : null}
                   </span>
-                          <span className={`buttons ${this.state.emojiShown ? 'hidden' : ''}`}>
+                                    <span className={`buttons ${this.state.emojiShown ? 'hidden' : ''}`}>
                     <Button
                         invert
                         small
@@ -286,11 +286,11 @@ class HeaderFeedback extends Component {
                       Send
                     </Button>
                   </span>
+                                </div>
+                            )}
                         </div>
-                    )}
-                  </div>
-                  <style jsx>
-                    {`
+                        <style jsx>
+                            {`
                 .geist-feedback-input {
                   --open-width: 310px;
                   --open-height: 174px;
@@ -497,84 +497,84 @@ class HeaderFeedback extends Component {
                   }
                 }
               `}
-                  </style>
-                </div>
-            )}
-        />
-    );
-  }
+                        </style>
+                    </div>
+                )}
+            />
+        );
+    }
 }
 
 class EmojiSelector extends Component {
-  state = {
-    shown: false,
-    current: null,
-    currentSetAt: null
-  };
+    state = {
+        shown: false,
+        current: null,
+        currentSetAt: null
+    };
 
-  onMouseEnter = () => {
-    this.setState(prevState => {
-      if (!prevState.shown && Date.now() - (prevState.currentSetAt || 0) > 100) {
-        return {shown: true};
-      }
-      return prevState;
-    });
-  };
+    onMouseEnter = () => {
+        this.setState(prevState => {
+            if (!prevState.shown && Date.now() - (prevState.currentSetAt || 0) > 100) {
+                return {shown: true};
+            }
+            return prevState;
+        });
+    };
 
-  onMouseLeave = () => {
-    this.setState(prevState => {
-      if (prevState.shown) {
-        return {shown: false};
-      }
+    onMouseLeave = () => {
+        this.setState(prevState => {
+            if (prevState.shown) {
+                return {shown: false};
+            }
 
-      return prevState;
-    });
-  };
+            return prevState;
+        });
+    };
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.props.onShow && !prevState.shown && this.state.shown) {
-      this.props.onShow();
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.onShow && !prevState.shown && this.state.shown) {
+            this.props.onShow();
+        }
+
+        if (this.props.onHide && prevState.shown && !this.state.shown) {
+            this.props.onHide();
+        }
+
+        if (this.props.onSelect && prevState.current !== this.state.current) {
+            this.props.onSelect(this.state.current);
+        }
     }
 
-    if (this.props.onHide && prevState.shown && !this.state.shown) {
-      this.props.onHide();
-    }
+    onSelect = current => {
+        this.setState({
+            current,
+            currentSetAt: Date.now(),
+            shown: false
+        });
+    };
 
-    if (this.props.onSelect && prevState.current !== this.state.current) {
-      this.props.onSelect(this.state.current);
-    }
-  }
-
-  onSelect = current => {
-    this.setState({
-      current,
-      currentSetAt: Date.now(),
-      shown: false
-    });
-  };
-
-  render() {
-    return (
-        <main
-            className={cn('geist-emoji-selector', {
-              shown: this.state.shown,
-              loading: this.props.loading
-            })}
-        >
-          <button
-              className={this.state.current !== null ? 'active' : ''}
-              onMouseEnter={this.onMouseEnter}
-              onTouchStart={this.onMouseEnter}
-              onMouseLeave={this.onMouseLeave}
-              type="button"
-              onClick={
-                this.state.current !== null && this.state.shown
-                    ? () => this.onSelect(null)
-                    : this.state.shown
-                    ? this.onMouseLeave
-                    : this.onMouseEnter
-              }
-          >
+    render() {
+        return (
+            <main
+                className={cn('geist-emoji-selector', {
+                    shown: this.state.shown,
+                    loading: this.props.loading
+                })}
+            >
+                <button
+                    className={this.state.current !== null ? 'active' : ''}
+                    onMouseEnter={this.onMouseEnter}
+                    onTouchStart={this.onMouseEnter}
+                    onMouseLeave={this.onMouseLeave}
+                    type="button"
+                    onClick={
+                        this.state.current !== null && this.state.shown
+                            ? () => this.onSelect(null)
+                            : this.state.shown
+                            ? this.onMouseLeave
+                            : this.onMouseEnter
+                    }
+                >
           <span className="inner icon">
             {this.state.current === null ? (
                 <EmojiIcon width="16px" height="16px"/>
@@ -584,26 +584,26 @@ class EmojiSelector extends Component {
                 <Emoji code={this.state.current}/>
             )}
           </span>
-          </button>
+                </button>
 
-          {Array.from(EMOJIS.values()).map(emoji => (
-              <button
-                  type="button"
-                  className="option"
-                  key={emoji}
-                  onMouseEnter={this.onMouseEnter}
-                  onTouchStart={this.onMouseEnter}
-                  onMouseLeave={this.onMouseLeave}
-                  onClick={this.onSelect.bind(this, emoji)}
-              >
+                {Array.from(EMOJIS.values()).map(emoji => (
+                    <button
+                        type="button"
+                        className="option"
+                        key={emoji}
+                        onMouseEnter={this.onMouseEnter}
+                        onTouchStart={this.onMouseEnter}
+                        onMouseLeave={this.onMouseLeave}
+                        onClick={this.onSelect.bind(this, emoji)}
+                    >
             <span className="inner">
               <Emoji code={emoji}/>
             </span>
-              </button>
-          ))}
+                    </button>
+                ))}
 
-          <style jsx>
-            {`
+                <style jsx>
+                    {`
             .geist-emoji-selector {
               display: flex;
               width: 210px;
@@ -692,10 +692,10 @@ class EmojiSelector extends Component {
               transform: translate3d(0, 0px, 0px);
             }
           `}
-          </style>
-        </main>
-    );
-  }
+                </style>
+            </main>
+        );
+    }
 }
 
 HeaderFeedback.contextType = FeedbackContext;
@@ -709,7 +709,7 @@ const Emoji = memo(({code}) => (
         alt="emoji"
         loading="lazy"
         style={{
-          transform: code === 'f600' || code === 'f615' ? 'translateY(0.5px)' : 'none'
+            transform: code === 'f600' || code === 'f615' ? 'translateY(0.5px)' : 'none'
         }}
     />
 ));
