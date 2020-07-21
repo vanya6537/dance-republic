@@ -4,6 +4,7 @@ import css from 'styled-jsx/css';
 
 import withPure from './hoc/pure';
 import LoadingDots from './loading-dots';
+import {COLOR_CODE_GREY, COLOR_CODE_RED, COLOR_CODE_WHITE} from "./css-config";
 
 const cachedStyles = css`
   .btn {
@@ -15,8 +16,8 @@ const cachedStyles = css`
     text-decoration: none;
     padding: 0.25rem 0.5rem;
     margin: -0.25rem -0.5rem;
-    border-radius: 7px;
-    color: #0070f3;
+    // border-radius: none;
+    color: ${COLOR_CODE_RED};
     background-color: transparent;
     border: none;
     font-size: inherit;
@@ -26,24 +27,23 @@ const cachedStyles = css`
   }
   .btn:hover {
     color: #0070f3;
-    background: rgba(0, 118, 255, 0.1);
+    background: ${COLOR_CODE_GREY};
   }
   .btn.invert {
     margin: 0;
     padding: 0 3.5rem;
     height: 2.81rem;
     line-height: 2.8rem;
-    border-radius: 7px;
-    background-color: #0070f3;
-    box-shadow: 0 4px 14px 0 rgba(0, 118, 255, 0.39);
+    background-color: ${COLOR_CODE_RED};
+    box-shadow: 0 4px 14px 0 ${COLOR_CODE_RED};
     color: white;
   }
   .btn.invert:hover {
-    background: rgba(0, 118, 255, 0.9);
-    box-shadow: 0 6px 20px rgba(0, 118, 255, 0.23);
+    background: ${COLOR_CODE_GREY};
+    box-shadow: 0 0 0 0; ;
   }
   .btn.invert:active {
-    background: #006ae6;
+    background: ${COLOR_CODE_GREY};
   }
   .btn.invert.outline {
     background: #fff;
@@ -59,23 +59,24 @@ const cachedStyles = css`
     height: 1.5rem;
     padding: 0 0.75rem;
     line-height: inherit;
-    border-radius: 5px;
+    // border-radius: 5px;
   }
   .btn.loading {
-    background: #fafafa;
-    color: #888888;
-    border: 1px solid #000;
-    border-color: #eaeaea;
+    background:  ${COLOR_CODE_GREY};
+    color: ${COLOR_CODE_WHITE};
+    // border: 3px solid #000;
+    // border-color: #eaeaea;
     box-shadow: none;
     cursor: default;
     pointer-events: none;
   }
   .btn.loading > .text {
-    visibility: hidden;
+    // visibility: hidden;
   }
   .btn > .loading-dots {
     position: absolute;
   }
+  // .disabled
 `;
 
 export default withPure(function Button({
@@ -118,11 +119,11 @@ export default withPure(function Button({
   return (
       <button type="button" className={cachedClassNames} {...props}>
         <span className="text">{children}</span>
-        {loading && (
-            <span className="loading-dots">
-          <LoadingDots size={4}/>
-        </span>
-        )}
+        {/*{loading && (*/}
+        {/*    <span className="loading-dots">*/}
+        {/*  <LoadingDots size={20}/>*/}
+        {/*</span>*/}
+        {/*)}*/}
         <style jsx>{cachedStyles}</style>
       </button>
   );
