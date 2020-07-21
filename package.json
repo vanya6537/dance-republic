@@ -16,6 +16,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-phone-number-input": "^3.0.24",
     "request": "^2.88.2",
     "styled-jsx": "^3.3.0"
   }
