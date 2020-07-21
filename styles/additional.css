@@ -1,0 +1,18 @@
+.PhoneInputInput {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  font-size: 20px;
+}
+
+#cf-submit {
+  margin: 30px 0;
+  width: 100%;
+}
+
+#hero-img {
+  transform: translateX(-1000%);
+}
+
+/*# sourceMappingURL=additional.css.map */
