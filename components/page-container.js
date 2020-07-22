@@ -1,8 +1,14 @@
 import Head from 'next/head';
-import {COLOR_CODE_BLACK, COLOR_CODE_DARK, COLOR_CODE_GREY, COLOR_CODE_RED, FONT_FAMILY_SANS} from './css-config';
-import {ORG_NAME} from "../lib/constants";
+import {
+    COLOR_CODE_BLACK,
+    COLOR_CODE_DARK,
+    COLOR_CODE_GREY,
+    COLOR_CODE_RED,
+    FONT_FAMILY_MONO,
+    FONT_FAMILY_SANS
+} from './css-config';
+import {MIDDLE_FONT_SIZE, ORG_NAME} from "../lib/constants";
 import ContactForm from "./contact-form"
-
 
 export default function PageContainer({title, description, formState, children}) {
     return (
@@ -42,14 +48,14 @@ export default function PageContainer({title, description, formState, children})
             margin: 0;
             line-height: 1.65;
             font-family: ${FONT_FAMILY_SANS};
-            font-size: 16px;
-            font-weight: 400;
+            font-size: ${MIDDLE_FONT_SIZE};
+            // font-weight: {}};
             min-width: 320px;
             direction: ltr;
-            font-feature-settings: 'kern';
-            text-rendering: optimizeLegibility;
+            // font-feature-settings: 'kern';
+            // text-rendering: optimizeLegibility;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            // -moz-osx-font-smoothing: grayscale;
             scroll-behavior: smooth;
           }
           html,
@@ -82,8 +88,7 @@ export default function PageContainer({title, description, formState, children})
           }
           code {
             font-size: 0.9em;
-            font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-              Bitstream Vera Sans Mono, Courier New, monospace, serif;
+            font-family: ${FONT_FAMILY_MONO};
           }
           code:before,
           code:after {
@@ -105,7 +110,7 @@ export default function PageContainer({title, description, formState, children})
             border: none;
           }
           .f-reset {
-            font-size: 1rem;
+            // font-size: 1rem;
           }
           .f0 {
             font-size: 1.802032470703125em;
@@ -380,8 +385,7 @@ export default function PageContainer({title, description, formState, children})
             background: #fafafa;
             border: 1px solid #eaeaea;
             display: inline-block;
-            font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
-              'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            font-family: ${FONT_FAMILY_SANS}
             line-height: 2em;
             text-align: center;
             padding: 0 4px;

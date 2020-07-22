@@ -15,7 +15,7 @@ export default withPure(({size, ...props}) => (
             enableBackground: 'new 0 0 708.66 288.9'
         }}{...props}
     >
-        <style type="text/css">
+        <style jsx>
             {`
 	        .st0{fill: #756D6B;}
             .st1{fill:#D65D54;}

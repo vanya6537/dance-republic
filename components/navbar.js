@@ -6,8 +6,9 @@ import {SkipNavLink} from '@reach/skip-nav';
 import {slide as Menu} from 'react-burger-menu'
 import {isMobile} from 'react-device-detect';
 import Container from './container';
-import {LANGUAGES, PLATFORM_NAME} from "../lib/constants";
-import Logo from "./logo"
+import {HARD_FONT_WEIGHT, LANGUAGES, LIGHT_FONT_WEIGHT, PLATFORM_NAME} from "../lib/constants";
+import LogoMin from "./logo-min"
+
 import {COLOR_CODE_BLACK, COLOR_CODE_DARK, COLOR_CODE_RED, COLOR_CODE_WHITE} from "./css-config";
 import ContactFormButton from "./contact-form-button"
 
@@ -56,7 +57,7 @@ const burgerStyles = {
     },
     bmItemList: {
         color: COLOR_CODE_BLACK,
-        padding: '0.8em',
+        padding: '20% 0',
         display: 'inline-block',
         overflowY: 'hidden !important'
     },
@@ -113,19 +114,18 @@ function Navbar({formState}) {
             <h1 className="visually-hidden" aria-hidden="true">
                 {PLATFORM_NAME}
             </h1>
-            <nav className="f-reset">
-                <div className="mobile-top">
-                    <Link href={`/${language}`}>
-                        <a className="mobile-logo" title="Go to the homepage" style={{color: "black"}}>
-                            <Logo height='40px' style={{transform: 'translateY(10px)', float: 'left'}}/>
-                        </a>
-                    </Link>
-                </div>
+            <div className="mobile-top">
+                <Link href={`/${language}`}>
+                    <a className="mobile-logo" title="Go to the homepage" style={{color: "black"}}>
+                        <LogoMin height='35px' style={{transform: 'translateY(10px)', float: 'left'}}/>
+                    </a>
+                </Link>
+            </div>
 
-                {!isMobile && <div className="links f3">
+            {!isMobile ? <div className="links">
                     <Link href={`/${language}`}>
                         <a className="logo">
-                            <Logo/>
+                            <LogoMin size={70}/>
                         </a>
                     </Link>
                     {menuLinks}
@@ -151,43 +151,32 @@ function Navbar({formState}) {
                             {contactFormText}
                         </ContactFormButton>
                     </div>
-                </div>}
-            </nav>
-            {isMobile &&
-            <Menu noOverlay id='burger-menu-wrapper' right pageWrapId="main-container"
-                  outerContainerId="full-page"
-                  styles={burgerStyles}>
-                <ul className="f2">
-                    <li>
-                        <Link href={`/${language}`}>
-                            <a className={cn(LANGUAGES.indexOf(thisPage) === -1 ? 'mute' : '')}>{['Main', 'FinMain', 'Главная страница'][LANGUAGES.indexOf(language)]}</a>
-                        </Link>
-                    </li>
-                    {menuLinks.map((listItem, ind) => {
-                        return (<li id={`key-${ind}`}>{listItem}</li>)
-                    })}
-                    <li key="cf-btn-hamburger">
-                        <ContactFormButton id="cf-contact-us" onClick={e => {
-                            // console.log(formState.showModal)
-                            // setLoading(!loading);
-                            // if (formState.showModal){
-                            formState.toggleModal(true)
-                            // }
-                            document.getElementById('cf-contact-us').classList.add('loading');
-                            // const overlay = document.getElementsByClassName('bm-overlay')[0];
-                            // overlay.style.transform = 'translate3d(100%, 0px, 0px)';
-                            // overlay.style.opacity = 0;
-                            document.getElementById('burger-menu-wrapper').style.transform = 'translate3d(100%, 0px, 0px)';
+                </div>
+                :
+                <Menu noOverlay right
+                      styles={burgerStyles} id="burger-menu-wrapper">
+                    <ul>
+                        <li>
+                            <Link href={`/${language}`}>
+                                <a className={cn(LANGUAGES.indexOf(thisPage) === -1 ? 'mute' : '')}>{['Main', 'FinMain', 'Главная страница'][LANGUAGES.indexOf(language)]}</a>
+                            </Link>
+                        </li>
+                        {menuLinks.map((listItem) => {
+                            return (<li key={listItem.href}>{listItem}</li>)
+                        })}
+                    </ul>
 
-                            // setLoading(true);
-                            e.preventDefault();
-                        }}>
-                            {contactFormText}
-                        </ContactFormButton>
-                    </li>
+                    <ContactFormButton id="cf-contact-us" onClick={e => {
+                        formState.toggleModal(true)
+                        document.getElementById('cf-contact-us').classList.add('loading');
+                        document.getElementById('burger-menu-wrapper').style.transform = 'translate3d(100%, 0px, 0px)';
+                        e.preventDefault();
+                    }}>
+                        {contactFormText}
+                    </ContactFormButton>
+
                     {langLinks}
-                </ul>
-            </Menu>}
+                </Menu>}
             <style jsx>{`
         nav {
           position: relative;
@@ -203,6 +192,7 @@ function Navbar({formState}) {
           align-items: center;
           justify-content: space-between;
           z-index: 1;
+          font-weight: ${LIGHT_FONT_WEIGHT};
         }
 
         .links a {
@@ -217,7 +207,7 @@ function Navbar({formState}) {
 
         .links a.selected {
           color: ${COLOR_CODE_DARK};
-          font-weight: 600;
+          font-weight: ${HARD_FONT_WEIGHT};
         }
         
         .links a:first-child{
@@ -245,11 +235,11 @@ function Navbar({formState}) {
         }
         
         .langs {
-          width: 90px;
+          width: 110px;
           display: flex;
           // align-items: center;
           justify-content: space-between;
-          font-weight: 400;
+          // font-weight: 400;
           // font-size: 24px;
           margin-right:30px;
         }
@@ -286,7 +276,7 @@ function Navbar({formState}) {
           }
 
           nav .links a {
-            font-size: 14px;
+            font-size: 24px;
           }
 
           .mobile-top {
@@ -319,9 +309,18 @@ function Navbar({formState}) {
          .bm-item-list > a {
             display: inline-block;
          }
+         
+         .links {
+         display: ${!isMobile}
+         }
+         #burger-menu-wrapper {
+         display: ${isMobile}
+         }
       `}</style>
+
         </Container>
     );
+
 }
 
 export default memo(Navbar);

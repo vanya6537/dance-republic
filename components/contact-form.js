@@ -148,6 +148,7 @@ export default ({action = '/api/phone', formState}) => {
                .modal-content{
                 width: 300px;
                 padding: 5px;
+                margin: 20% auto;
                 }
                 .contact-form-title{
                 line-height: 1.4;

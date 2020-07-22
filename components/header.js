@@ -18,13 +18,16 @@ const Header = ({sticky = true,formState}) => {
           align-items: center;
           width: 100%;
           background: #fff;
-          z-index: 1000;
+          z-index: 20;
           border-bottom: 1px solid #eaeaea;
         }
         header.sticky {
           position: sticky;
           top: 0;
         }
+        @media (max-width:480px){
+        height:58px;
+        } 
       `}</style>
         </>
     );

@@ -1,4 +1,6 @@
 import Button from "./button";
+import {FONT_FAMILY_SANS} from "./css-config";
+// import {BIG_FONT_SIZE} from "../lib/constants";
 
 export default ({children, ...props}) => {
 
@@ -10,13 +12,14 @@ export default ({children, ...props}) => {
             invert
             // small¬
             loading={props.loading || false}
+            className="fw5"
+
             {...props}
         >{children}
             <style jsx>{`
-                #cf-btn {
-                    // box-sizing: border-box;
-                    padding: 40px 20px;
-                }
+            {
+            font-family: ${FONT_FAMILY_SANS}
+            }
                 `}</style>
         </Button>
 

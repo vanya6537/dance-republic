@@ -16,7 +16,7 @@ export default function Container({
                                     ...props
                                   }) {
   return (
-      <div id="main-container" {...props}>
+      <div {...props}>
           <style jsx>
               {`
       {
@@ -32,17 +32,17 @@ export default function Container({
         ${gray ? 'border-top: 1px solid #eaeaea;' : ''}
         ${gray ? 'border-bottom: 1px solid #eaeaea;' : ''}
         ${wide && !overflow ? 'overflow: hidden;' : ''}
-        ${minHeight ? `min-height: ${minHeight}px;` : ''}
+        ${minHeight ? `min-height: ${minHeight};` : ''}
         ${vCenter ? 'display: flex; align-items: center;' : ''}
         ${
-              dotBackground
-                  ? `
+                  dotBackground
+                      ? `
           background-image: radial-gradient(#D7D7D7 1px, transparent 1px), radial-gradient(#d7d7d7 1px, transparent 1px);
           background-position: 0 0, 25px 25px;
           background-size: 50px 50px;
         `
-                  : ''
-          }
+                      : ''
+              }
         ${divider ? `border-top: 1px solid rgba(0,0,0,0.1);` : ''}
       }
       :after {
@@ -54,18 +54,21 @@ export default function Container({
 
       // CSS only media query for tablet
       @media screen and (max-width: 960px) {
-        div {
-          padding: ${padding ? '4rem' : '0'} ${wide || wideOnMobile ? '0' : '2rem'};
-          ${wideOnMobile && !overflow ? 'overflow: hidden;' : ''}
-        }
+        // div {
+        //   padding: ${padding ? '4rem' : '0'} ${wide || wideOnMobile ? '0' : '2rem'};
+        //   ${wideOnMobile && !overflow ? 'overflow: hidden;' : ''}
+        // }
       }
       // CSS only media query for mobile
-      @media screen and (max-width: 640px) {
-        div {
-          padding: ${padding ? '4rem' : '0'} ${wide || wideOnMobile ? '0' : '1rem'};
-          ${mobileStyle || ''}
-        }
-      }
+      // @media screen and (max-width: 640px) {
+        // {
+        //   padding: ${padding ? '4rem' : '0'} ${wide || wideOnMobile ? '0' : '1rem'};
+        //   ${mobileStyle || ''}
+        //     display: flex;
+        //     align-items: center;
+        //     justify-content: center;
+        // }
+      // }
     `}
         </style>
         {children}
