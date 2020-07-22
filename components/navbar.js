@@ -46,7 +46,8 @@ const burgerStyles = {
     bmMenu: {
         background: COLOR_CODE_WHITE,
         padding: '0',
-        fontSize: '1.15em'
+        fontSize: '1.15em',
+        overflowY: 'hidden !important'
     },
     bmMorphShape: {
         fill: COLOR_CODE_DARK

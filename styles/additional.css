@@ -33,11 +33,9 @@ ul {
   .bm-item-list ul {
     outline: none;
   }
-
   .bm-item-list ul li {
     margin: 7px 0;
   }
-
   .bm-item-list ul a {
     margin: 5px;
   }
