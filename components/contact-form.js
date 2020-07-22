@@ -4,6 +4,8 @@ import {COLOR_CODE_GREY, COLOR_CODE_RED, COLOR_CODE_WHITE} from "./css-config";
 import ContactFormButton from './contact-form-button';
 import PhoneInput, {getCountryCallingCode, isPossiblePhoneNumber} from 'react-phone-number-input'
 import {LANGUAGES} from '../lib/constants'
+import {isMobile} from 'react-device-detect';
+
 const preventDefault = f => e => {
     e.preventDefault()
     f(e)
@@ -92,8 +94,8 @@ export default ({action = '/search', formState}) => {
                 {/*    formState.toggleModal(false)*/}
                 {/*}}>Close</ContactFormButton>*/}
                 <div className="contact-form-wrapper">
-                    <h1>{title}</h1>
-                    <p>{subtitle}</p>
+                    <h1 className="contact-form-title">{title}</h1>
+                    <p className="contact-form-subtitle">{subtitle}</p>
                     <form onSubmit={handleSubmit} className="contact-form">
                         <PhoneInput
                             international
@@ -132,12 +134,18 @@ export default ({action = '/search', formState}) => {
             // padding: 40px;
             border-top: 1px solid ${COLOR_CODE_RED};
             border-bottom: 1px solid ${COLOR_CODE_GREY};
-
-            // border-radiuspx;s
             max-width:1024px;
             margin: 100px auto;
             padding: 2rem 4rem;
-
+            }
+            @media (max-width: 480px){
+               .modal-content{
+                width: 300px;
+                padding: 5px;
+                }
+                .contact-form-title{
+                line-height: 1.4;
+                }
             }
             
             `}</style>

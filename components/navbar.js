@@ -5,7 +5,6 @@ import {useAmp} from 'next/amp';
 import cn from 'classnames';
 import {SkipNavLink} from '@reach/skip-nav';
 import Container from './container';
-import GitHubLogo from './icons/github';
 import {LANGUAGES, PLATFORM_NAME} from "../lib/constants";
 import Logo from "./logo"
 import {COLOR_CODE_BLACK, COLOR_CODE_DARK, COLOR_CODE_RED, COLOR_CODE_WHITE} from "./css-config";
@@ -16,10 +15,10 @@ import {isMobile} from 'react-device-detect';
 const burgerStyles = {
     bmBurgerButton: {
         position: 'fixed',
-        width: '36px',
-        height: '30px',
-        right: '36px',
-        top: '36px'
+        width: '30px',
+        height: '24px',
+        right: '30px',
+        top: '24px'
     },
     bmBurgerBars: {
         background: '#373a47'
@@ -29,7 +28,8 @@ const burgerStyles = {
     },
     bmCrossButton: {
         height: '24px',
-        width: '24px'
+        width: '24px',
+        right: '30px'
     },
     bmCross: {
         background: COLOR_CODE_DARK
@@ -37,7 +37,8 @@ const burgerStyles = {
     bmMenuWrap: {
         position: 'fixed',
         height: '100%',
-        right: '0'
+        right: '0',
+        width: '100%'
     },
     bmMenu: {
         background: COLOR_CODE_WHITE,
@@ -70,7 +71,7 @@ function Navbar({formState}) {
 
     const thisPage = pathNameSplit[pathNameSplit.length - 1];
     // console.log(thisPage);
-    console.log(isMobile)
+    console.log(thisPage)
 
     const langLinks = LANGUAGES.map(lang => {
         return <Link href={'/' + [lang, ...router.pathname.split('/').slice(2)].join('/')}>
@@ -94,7 +95,7 @@ function Navbar({formState}) {
             <a
                 className={cn(thisPage !== menuObj.path ? "mute" : "")}
             >
-                {menuObj.titles[LANGUAGES.indexOf(language)].toUpperCase()}
+                {menuObj.titles[LANGUAGES.indexOf(language)]}
             </a>
 
         </Link>
@@ -110,12 +111,12 @@ function Navbar({formState}) {
                 <div className="mobile-top">
                     <Link href={"/" + language}>
                         <a className="mobile-logo" title="Go to the homepage" style={{color: "black"}}>
-                            <Logo/>
+                            <Logo height='40px' style={{transform: 'translateY(10px)', float: 'left'}}/>
                         </a>
                     </Link>
                 </div>
 
-                {!isMobile && <div className="links">
+                {!isMobile && <div className="links f3">
                     <Link href={"/" + language}>
                         <a className="logo">
                             <Logo/>
@@ -147,11 +148,17 @@ function Navbar({formState}) {
                 </div>}
             </nav>
             {isMobile &&
-            <Menu right={true} pageWrapId={"full-page"} outerContainerId={'full-page'} styles={burgerStyles}>
-                <ul>{menuLinks.map((listItem, ind) => {
-                    return (<li key={ind}>{listItem}</li>)
-                })}
-
+            <Menu id='burger-menu-wrapper' right={true} pageWrapId={"full-page"} outerContainerId={'full-page'}
+                  styles={burgerStyles}>
+                <ul className="f2">
+                    <li>
+                        <Link href={"/" + language}>
+                            <a className={cn(LANGUAGES.indexOf(thisPage) === -1 ? 'mute' : '')}>{['Main', 'FinMain', 'Главная страница'][LANGUAGES.indexOf(language)]}</a>
+                        </Link>
+                    </li>
+                    {menuLinks.map((listItem, ind) => {
+                        return (<li key={ind}>{listItem}</li>)
+                    })}
                     <li key={'cf-btn-hamburger'}>
                         <ContactFormButton id="cf-contact-us" onClick={e => {
                             // console.log(formState.showModal)
@@ -160,6 +167,11 @@ function Navbar({formState}) {
                             formState.toggleModal(true)
                             // }
                             document.getElementById('cf-contact-us').classList.add('loading');
+                            const overlay = document.getElementsByClassName('bm-overlay')[0];
+                            overlay.style.transform = 'translate3d(100%, 0px, 0px)';
+                            overlay.style.opacity = 0;
+                            document.getElementById('burger-menu-wrapper').style.transform = 'translate3d(100%, 0px, 0px)';
+
                             // setLoading(true);
                             e.preventDefault();
                         }}>
@@ -246,6 +258,11 @@ function Navbar({formState}) {
         @media (max-width: 640px) {
           .mobile-logo {
             display: block;
+          }
+          
+          .f-reset {
+         padding: 5px 0;
+         // display: inline-flex;
           }
 
           nav {
