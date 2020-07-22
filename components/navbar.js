@@ -166,7 +166,7 @@ function Navbar({formState}) {
                     {menuLinks.map((listItem, ind) => {
                         return (<li id={`key-${ind}`}>{listItem}</li>)
                     })}
-                    <li key="cf-btn-hamburger">¬
+                    <li key="cf-btn-hamburger">
                         <ContactFormButton id="cf-contact-us" onClick={e => {
                             // console.log(formState.showModal)
                             // setLoading(!loading);
