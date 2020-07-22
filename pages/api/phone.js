@@ -6,15 +6,15 @@ const telegramUserId = process.env.TELEGRAM_USER_ID
 function sendMessage(botToken, chatId, text) {
     const baseUrl = `https://api.telegram.org/bot${botToken}/sendMessage`
     return new Promise(resolve => {
-        axios
-            .get(baseUrl, {chat_id: chatId, text})
-            .then(resp => {
-                console.log(resp.data)
-                resolve()
-            })
-            .catch(e => {
-                console.error('Telegram error', e.response.data)
-                resolve()
+            axios
+                .get(baseUrl, {chat_id: parseInt(chatId, 10), text})
+                .then(resp => {
+                    console.log(resp.data)
+                    resolve()
+                })
+                .catch(e => {
+                    console.error('Telegram error', e.response.data)
+                    resolve()
                 })
         }
     )
