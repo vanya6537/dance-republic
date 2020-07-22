@@ -115,7 +115,7 @@ function Navbar({formState}) {
                     </Link>
                 </div>
 
-                {isMobile && <div className="links">
+                {!isMobile && <div className="links">
                     <Link href={"/" + language}>
                         <a className="logo">
                             <Logo/>
@@ -146,7 +146,7 @@ function Navbar({formState}) {
                     </div>
                 </div>}
             </nav>
-            {!isMobile &&
+            {isMobile &&
             <Menu right={true} pageWrapId={"full-page"} outerContainerId={'full-page'} styles={burgerStyles}>
                 <ul>{menuLinks.map((listItem, ind) => {
                     return (<li key={ind}>{listItem}</li>)
