@@ -56,6 +56,7 @@ const burgerStyles = {
         color: COLOR_CODE_BLACK,
         padding: '0.8em',
         display: 'inline-block',
+        overflowY: 'hidden !important'
     },
     bmItem: {
         // display: 'inline-block',

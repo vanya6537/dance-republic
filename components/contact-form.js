@@ -4,7 +4,6 @@ import {COLOR_CODE_GREY, COLOR_CODE_RED, COLOR_CODE_WHITE} from "./css-config";
 import ContactFormButton from './contact-form-button';
 import PhoneInput, {getCountryCallingCode, isPossiblePhoneNumber} from 'react-phone-number-input'
 import {LANGUAGES} from '../lib/constants'
-import {isMobile} from 'react-device-detect';
 
 const preventDefault = f => e => {
     e.preventDefault()
@@ -39,7 +38,7 @@ const useOutsideAlerter = (ref, formState) => {
     }, [ref]);
 };
 
-export default ({action = '/search', formState}) => {
+export default ({action = '/api/phone', formState}) => {
     const router = useRouter()
     const wrapperRef = useRef(null);
     const defaultCountry = "FI";
@@ -51,25 +50,29 @@ export default ({action = '/search', formState}) => {
     // const [windowOffset, setWindowOffset] = useState(window.scrollY);
     useOutsideAlerter(wrapperRef, formState);
 
-    const title=["Wanna dance with us?","Wanna dance with us? FINNISH","Хочешь потанцевать?"][LANGUAGES.indexOf(language)];
-    const subtitle = ["We will call you back!","We will call you back! FINNISH","Мы тебе перезвоним!"][LANGUAGES.indexOf(language)];
+    const title = ["Wanna dance with us?", "Wanna dance with us? FINNISH", "Хочешь потанцевать?"][LANGUAGES.indexOf(language)];
+    const subtitle = ["We will call you back!", "We will call you back! FINNISH", "Мы тебе перезвоним!"][LANGUAGES.indexOf(language)];
 
 
     // const handleParam = setValue => e => setValue(e.target.value)
 
     const handleSubmit = preventDefault((e) => {
         if (isPossiblePhoneNumber(value)) {
-            alert('Success!')
-            // setLoading(false);
+            e.preventDefault();
+            alert('Success!');
+            fetch(action, {
+                    method: 'post', body: JSON.stringify({phone: value}), headers: {
+                        'Content-Type': 'application/json'
+                        // 'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                }
+            ).then(r => {
+            });
         } else {
-            alert('Invalid')
+            alert('Invalid');
             // setLoading(true)
         }
-        e.preventDefault();
-        // router.push({
-        //     pathname: action,
-        //     phone: value,
-        // })
+
     })
 
     const checkValue = (value) => {
