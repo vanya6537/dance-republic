@@ -24,8 +24,9 @@ module.exports = (request, response) => {
     const {
         phone = "Hey there! Simple response!"
     } = request.body
-    console.log(request.body);
+    console.log(request.body)
     const messageText = `Phone: ${phone}`
+    console.log(messageText)
     sendMessage(token, telegramUserId, messageText).then(
         () => response.status(200).send(`Thank you for your feedback!`))
 }

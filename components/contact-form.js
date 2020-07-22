@@ -57,16 +57,18 @@ export default ({action = '/api/phone', formState}) => {
     // const handleParam = setValue => e => setValue(e.target.value)
 
     const handleSubmit = preventDefault((e) => {
+        e.preventDefault();
         if (isPossiblePhoneNumber(value)) {
-            e.preventDefault();
-            alert('Success!');
             fetch(action, {
                     method: 'post', body: JSON.stringify({phone: value}), headers: {
                         'Content-Type': 'application/json'
                         // 'Content-Type': 'application/x-www-form-urlencoded',
                     },
                 }
-            );
+            ).then(r => {
+                console.log(r);
+            });
+            alert('Success!');
         } else {
             alert('Invalid');
             // setLoading(true)
