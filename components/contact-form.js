@@ -140,6 +140,9 @@ export default ({action = '/api/phone', formState}) => {
             padding: 2rem 4rem;
             }
             @media (max-width: 480px){
+               .modal {
+                   top: 58px;
+               }
                .modal-content{
                 width: 300px;
                 padding: 5px;
