@@ -1,16 +1,15 @@
 import {memo} from 'react';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
-import {useAmp} from 'next/amp';
 import cn from 'classnames';
 import {SkipNavLink} from '@reach/skip-nav';
+import {slide as Menu} from 'react-burger-menu'
+import {isMobile} from 'react-device-detect';
 import Container from './container';
 import {LANGUAGES, PLATFORM_NAME} from "../lib/constants";
 import Logo from "./logo"
 import {COLOR_CODE_BLACK, COLOR_CODE_DARK, COLOR_CODE_RED, COLOR_CODE_WHITE} from "./css-config";
 import ContactFormButton from "./contact-form-button"
-import {slide as Menu} from 'react-burger-menu'
-import {isMobile} from 'react-device-detect';
 
 const burgerStyles = {
     bmBurgerButton: {
@@ -41,7 +40,10 @@ const burgerStyles = {
         height: '100%',
         right: '0',
         width: '100%',
-        zIndex: 5
+        zIndex: 5,
+        top: '58px',
+        overflowY: 'hidden !important'
+
     },
     bmMenu: {
         background: COLOR_CODE_WHITE,
@@ -68,7 +70,6 @@ const burgerStyles = {
 
 function Navbar({formState}) {
     const router = useRouter();
-    const isAmp = useAmp();
     const pathNameSplit = router.pathname.split('/');
     const language = pathNameSplit[1]
     const contactFormText = ["Contact Us", "Contact Us FI", "Записаться"][LANGUAGES.indexOf(language)];
@@ -79,9 +80,9 @@ function Navbar({formState}) {
     console.log(thisPage)
 
     const langLinks = LANGUAGES.map(lang => {
-        return <Link href={'/' + [lang, ...router.pathname.split('/').slice(2)].join('/')}>
+        return <Link href={`/${[lang, ...router.pathname.split('/').slice(2)].join('/')}`}>
             <a
-                className={cn('fw5 ' + (lang === language ? '' : 'mute'))}
+                className={cn(`fw5 ${lang === language ? '' : 'mute'}`)}
                 // title="Second Post"
             >
                 {lang.toUpperCase()}
@@ -95,7 +96,7 @@ function Navbar({formState}) {
         {path: 'info', titles: ['About Us', 'Finnish About Us', 'О нас']}
     ]
     const menuLinks = menuObjects.map(menuObj => {
-        return <Link href={'/' + language + '/' + menuObj.path}>
+        return <Link href={`/${language}/${menuObj.path}`}>
 
             <a
                 className={cn(thisPage !== menuObj.path ? "mute" : "")}
@@ -114,7 +115,7 @@ function Navbar({formState}) {
             </h1>
             <nav className="f-reset">
                 <div className="mobile-top">
-                    <Link href={"/" + language}>
+                    <Link href={`/${language}`}>
                         <a className="mobile-logo" title="Go to the homepage" style={{color: "black"}}>
                             <Logo height='40px' style={{transform: 'translateY(10px)', float: 'left'}}/>
                         </a>
@@ -122,7 +123,7 @@ function Navbar({formState}) {
                 </div>
 
                 {!isMobile && <div className="links f3">
-                    <Link href={"/" + language}>
+                    <Link href={`/${language}`}>
                         <a className="logo">
                             <Logo/>
                         </a>
@@ -134,9 +135,9 @@ function Navbar({formState}) {
                             {langLinks}
                         </div>
 
-                        {/*<div className="header-feedback">*/}
-                        {/*    <HeaderFeedback/>*/}
-                        {/*</div>*/}
+                        {/* <div className="header-feedback"> */}
+                        {/*    <HeaderFeedback/> */}
+                        {/* </div> */}
                         <ContactFormButton id="cf-contact-us" onClick={e => {
                             // console.log(formState.showModal)
                             // setLoading(!loading);
@@ -153,19 +154,19 @@ function Navbar({formState}) {
                 </div>}
             </nav>
             {isMobile &&
-            <Menu noOverlay id='burger-menu-wrapper' right={true} pageWrapId={"full-page"}
-                  outerContainerId={'full-page'}
+            <Menu noOverlay id='burger-menu-wrapper' right pageWrapId="main-container"
+                  outerContainerId="full-page"
                   styles={burgerStyles}>
                 <ul className="f2">
                     <li>
-                        <Link href={"/" + language}>
+                        <Link href={`/${language}`}>
                             <a className={cn(LANGUAGES.indexOf(thisPage) === -1 ? 'mute' : '')}>{['Main', 'FinMain', 'Главная страница'][LANGUAGES.indexOf(language)]}</a>
                         </Link>
                     </li>
                     {menuLinks.map((listItem, ind) => {
-                        return (<li key={ind}>{listItem}</li>)
+                        return (<li id={`key-${ind}`}>{listItem}</li>)
                     })}
-                    <li key={'cf-btn-hamburger'}>
+                    <li key="cf-btn-hamburger">¬
                         <ContactFormButton id="cf-contact-us" onClick={e => {
                             // console.log(formState.showModal)
                             // setLoading(!loading);

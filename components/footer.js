@@ -100,7 +100,7 @@ export default withPure(() => (
               <h4 className="fw5">About {ORG_NAME}</h4>
               <p>
                 <a
-                    href={`https://vercel.com/oss?utm_source=next-site&utm_medium=footer&utm_campaign=next-website`}
+                    href="https://vercel.com/oss?utm_source=next-site&utm_medium=footer&utm_campaign=next-website"
                     rel="noopener noreferrer"
                     target="_blank"
                 >
@@ -114,7 +114,7 @@ export default withPure(() => (
               </p>
               <p>
                 <a
-                    href={`https://twitter.com/vercel`}
+                    href="https://twitter.com/vercel"
                     rel="noopener noreferrer"
                     target="_blank"
                 >
@@ -132,7 +132,7 @@ export default withPure(() => (
                 aria-label={ORG_NAME}
                 style={{color: "black"}}
             >
-              {/*<Logo/>*/}
+                {/* <Logo/> */}
               <h1>{PLATFORM_NAME}</h1>
             </a>
             <div>

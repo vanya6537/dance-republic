@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import css from 'styled-jsx/css';
 
 import withPure from './hoc/pure';
-import LoadingDots from './loading-dots';
 import {COLOR_CODE_GREY, COLOR_CODE_RED, COLOR_CODE_WHITE} from "./css-config";
 
 const cachedStyles = css`
@@ -80,51 +79,51 @@ const cachedStyles = css`
 `;
 
 export default withPure(function Button({
-                                          children,
-                                          invert,
-                                          outline,
-                                          small,
-                                          href,
-                                          as,
-                                          className,
-                                          amp,
-                                          loading,
-                                          ...props
+                                            children,
+                                            invert,
+                                            outline,
+                                            small,
+                                            href,
+                                            as,
+                                            className,
+                                            amp,
+                                            loading,
+                                            ...props
                                         }) {
-  const cachedClassNames = classNames(className, 'btn', 'fw4 no-drag', {
-    outline,
-    invert,
-    small,
-    loading
-  });
+    const cachedClassNames = classNames(className, 'btn', 'fw4 no-drag', {
+        outline,
+        invert,
+        small,
+        loading
+    });
 
-  if (href) {
-    const isExternal = href && href.startsWith('http');
-    const a = (
-        <a className={cachedClassNames} href={href} {...props}>
-          {children}
-          <style jsx>{cachedStyles}</style>
-        </a>
+    if (href) {
+        const isExternal = href && href.startsWith('http');
+        const a = (
+            <a className={cachedClassNames} href={href} {...props}>
+                {children}
+                <style jsx>{cachedStyles}</style>
+            </a>
+        );
+
+        return amp || isExternal ? (
+            a
+        ) : (
+            <Link href={href} as={as} passHref>
+                {a}
+            </Link>
+        );
+    }
+
+    return (
+        <button type="button" className={cachedClassNames} {...props}>
+            <span className="text">{children}</span>
+            {/* {loading && ( */}
+            {/*    <span className="loading-dots"> */}
+            {/*  <LoadingDots size={20}/> */}
+            {/* </span> */}
+            {/* )} */}
+            <style jsx>{cachedStyles}</style>
+        </button>
     );
-
-    return amp || isExternal ? (
-        a
-    ) : (
-        <Link href={href} as={as} passHref>
-          {a}
-        </Link>
-    );
-  }
-
-  return (
-      <button type="button" className={cachedClassNames} {...props}>
-        <span className="text">{children}</span>
-        {/*{loading && (*/}
-        {/*    <span className="loading-dots">*/}
-        {/*  <LoadingDots size={20}/>*/}
-        {/*</span>*/}
-        {/*)}*/}
-        <style jsx>{cachedStyles}</style>
-      </button>
-  );
 });

@@ -1,18 +1,8 @@
 import Head from 'next/head';
-import Router from 'next/router';
-import {
-    FONT_FAMILY_SANS,
-    COLOR_CODE_GREY,
-    COLOR_CODE_RED,
-    COLOR_CODE_WHITE,
-    COLOR_CODE_DARK,
-    COLOR_CODE_BLACK
-} from './css-config';
+import {COLOR_CODE_BLACK, COLOR_CODE_DARK, COLOR_CODE_GREY, COLOR_CODE_RED, FONT_FAMILY_SANS} from './css-config';
 import {ORG_NAME} from "../lib/constants";
-import ContactForm from "../components/contact-form"
+import ContactForm from "./contact-form"
 
-Router.events.on('routeChangeComplete', url => {
-});
 
 export default function PageContainer({title, description, formState, children}) {
     return (

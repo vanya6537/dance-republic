@@ -16,9 +16,9 @@ export default function Container({
                                     ...props
                                   }) {
   return (
-      <div {...props}>
-        <style jsx>
-          {`
+      <div id="main-container" {...props}>
+          <style jsx>
+              {`
       {
         width: 100%;
         margin: 0 auto;

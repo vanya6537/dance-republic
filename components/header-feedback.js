@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-classes-per-file
 import {Component, memo} from 'react';
 import cn from 'classnames';
 import ClickOutside from './click-outside';
@@ -28,20 +29,26 @@ function getEmoji(code) {
 }
 
 class HeaderFeedback extends Component {
-    state = {
-        emoji: null,
-        loading: false,
-        focused: false,
-        success: false,
-        emojiShown: false,
-        errorMessage: null,
-        value: null
-    };
+
+    // eslint-disable-next-line react/sort-comp
+    constructor(props) {
+        super(props);
+        this.state = {
+            emoji: null,
+            loading: false,
+            focused: false,
+            success: false,
+            emojiShown: false,
+            errorMessage: null,
+            value: null
+        };
+    }
 
     clearSuccessTimer = null;
 
     textAreaRef = null;
 
+    // eslint-disable-next-line react/sort-comp
     handleTextAreaRef = node => {
         this.textAreaRef = node;
     };
@@ -506,11 +513,15 @@ class HeaderFeedback extends Component {
 }
 
 class EmojiSelector extends Component {
-    state = {
-        shown: false,
-        current: null,
-        currentSetAt: null
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            shown: false,
+            current: null,
+            currentSetAt: null
+        };
+    }
+
 
     onMouseEnter = () => {
         this.setState(prevState => {

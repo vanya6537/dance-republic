@@ -5,12 +5,21 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "eslint \"**/*.js\" --ignore-pattern node_modules/"
   },
   "dependencies": {
     "@reach/skip-nav": "^0.10.4",
     "axios": "^0.19.2",
     "classnames": "^2.2.6",
+    "eslint": "^7.5.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-airbnb-typescript": "^9.0.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-prettier-react": "^0.0.24",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.20.3",
     "next": "9.3.5",
     "nprogress": "^0.2.0",
     "prop-types": "^15.7.2",
@@ -21,5 +30,10 @@
     "react-phone-number-input": "^3.0.24",
     "request": "^2.88.2",
     "styled-jsx": "^3.3.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^3.7.0",
+    "babel-eslint": "^10.1.0",
+    "eslint-plugin-react-hooks": "^4.0.8"
   }
 }

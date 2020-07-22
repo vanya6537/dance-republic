@@ -1,21 +1,20 @@
 const axios = require('axios')
+
 const token = process.env.TELEGRAM_BOT_TOKEN
 const telegramUserId = process.env.TELEGRAM_USER_ID
 
-function sendMessage(token, chat_id, text) {
-    const baseUrl = `https://api.telegram.org/bot${token}/sendMessage`
-    const params = {chat_id: parseInt(chat_id), text}
-    console.log(params)
+function sendMessage(botToken, chatId, text) {
+    const baseUrl = `https://api.telegram.org/bot${botToken}/sendMessage`
     return new Promise(resolve => {
-            axios
-                .get(baseUrl, {params})
-                .then(resp => {
-                    console.log(resp.data)
-                    resolve()
-                })
-                .catch(e => {
-                    console.error('Telegram error', e.response.data)
-                    resolve()
+        axios
+            .get(baseUrl, {chat_id: chatId, text})
+            .then(resp => {
+                console.log(resp.data)
+                resolve()
+            })
+            .catch(e => {
+                console.error('Telegram error', e.response.data)
+                resolve()
                 })
         }
     )

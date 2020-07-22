@@ -1,8 +1,8 @@
 import {useEffect, useRef, useState} from 'react'
 import {useRouter} from 'next/router'
+import PhoneInput, {getCountryCallingCode, isPossiblePhoneNumber} from 'react-phone-number-input'
 import {COLOR_CODE_GREY, COLOR_CODE_RED, COLOR_CODE_WHITE} from "./css-config";
 import ContactFormButton from './contact-form-button';
-import PhoneInput, {getCountryCallingCode, isPossiblePhoneNumber} from 'react-phone-number-input'
 import {LANGUAGES} from '../lib/constants'
 
 const preventDefault = f => e => {
@@ -35,7 +35,7 @@ const useOutsideAlerter = (ref, formState) => {
             // Unbind the event listener on clean up
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [ref]);
+    }, [formState, ref]);
 };
 
 export default ({action = '/api/phone', formState}) => {
@@ -43,7 +43,7 @@ export default ({action = '/api/phone', formState}) => {
     const wrapperRef = useRef(null);
     const defaultCountry = "FI";
     const countryCallingCode = getCountryCallingCode(defaultCountry);
-    const [value, setValue] = useState('+' + countryCallingCode);
+    const [value, setValue] = useState(`+${countryCallingCode}`);
     const [loading, setLoading] = useState(true);
     const pathNameSplit = router.pathname.split('/');
     const language = pathNameSplit[1];
@@ -66,8 +66,7 @@ export default ({action = '/api/phone', formState}) => {
                         // 'Content-Type': 'application/x-www-form-urlencoded',
                     },
                 }
-            ).then(r => {
-            });
+            );
         } else {
             alert('Invalid');
             // setLoading(true)
@@ -75,11 +74,10 @@ export default ({action = '/api/phone', formState}) => {
 
     })
 
-    const checkValue = (value) => {
-        console.log(value);
-        setValue(value);
-        if (isPossiblePhoneNumber(value)) {
-            // alert('phone ' + value)
+    const checkValue = phone => {
+        setValue(phone);
+        if (isPossiblePhoneNumber(phone)) {
+            // alert('phone ' + phone)
             setLoading(false);
             document.getElementById('cf-submit').style.borderBottom = `1px solid ${COLOR_CODE_RED}`
         } else {
@@ -93,9 +91,9 @@ export default ({action = '/api/phone', formState}) => {
     return (
         <div className="modal" id="modal-cf">
             <div className="modal-content" ref={wrapperRef}>
-                {/*<ContactFormButton id="close-form" small onClick={() => {*/}
-                {/*    formState.toggleModal(false)*/}
-                {/*}}>Close</ContactFormButton>*/}
+                {/* <ContactFormButton id="close-form" small onClick={() => { */}
+                {/*    formState.toggleModal(false) */}
+                {/* }}>Close</ContactFormButton> */}
                 <div className="contact-form-wrapper">
                     <h1 className="contact-form-title">{title}</h1>
                     <p className="contact-form-subtitle">{subtitle}</p>
@@ -110,9 +108,9 @@ export default ({action = '/api/phone', formState}) => {
                         <ContactFormButton loading={loading} type="submit" id="cf-submit">Submit</ContactFormButton>
 
                     </form>
-                    {/*<ContactFormButton onClick={()=>{*/}
-                    {/*    formState.toggleModal(false);*/}
-                    {/*}}>Close</ContactFormButton>*/}
+                    {/* <ContactFormButton onClick={()=>{ */}
+                    {/*    formState.toggleModal(false); */}
+                    {/* }}>Close</ContactFormButton> */}
 
                 </div>
 

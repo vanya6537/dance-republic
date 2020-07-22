@@ -1,17 +1,16 @@
-import {useState} from 'react'
-import {useRouter} from 'next/router'
 import Button from "./button";
-export default ({children,...props}) => {
-    const [opened, setOpened] = useState(false)
 
-    const [loading, setLoading] = useState(false)
+export default ({children, ...props}) => {
+
+    // eslint-disable-next-line no-unused-vars
+    // const [loading, setLoading] = useState(false)
 
     return (
         <Button
             invert
-            // small
-            loading={loading}
-                {...props}
+            // small¬
+            loading={props.loading || false}
+            {...props}
         >{children}
             <style jsx>{`
                 #cf-btn {
