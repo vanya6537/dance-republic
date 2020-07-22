@@ -60,14 +60,15 @@ export default function Container({
         // }
       }
       // CSS only media query for mobile
-      // @media screen and (max-width: 640px) {
-        // {
+      @media screen and (max-width: 640px) {
+        div{
         //   padding: ${padding ? '4rem' : '0'} ${wide || wideOnMobile ? '0' : '1rem'};
         //   ${mobileStyle || ''}
         //     display: flex;
         //     align-items: center;
         //     justify-content: center;
-        // }
+        overflow: hidden;
+        }
       // }
     `}
         </style>
