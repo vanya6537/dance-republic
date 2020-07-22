@@ -1,4 +1,4 @@
-import {memo, useState} from 'react';
+import {memo} from 'react';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
 import {useAmp} from 'next/amp';
@@ -6,11 +6,59 @@ import cn from 'classnames';
 import {SkipNavLink} from '@reach/skip-nav';
 import Container from './container';
 import GitHubLogo from './icons/github';
-import HeaderFeedback from './header-feedback';
 import {LANGUAGES, PLATFORM_NAME} from "../lib/constants";
 import Logo from "./logo"
-import {COLOR_CODE_DARK, COLOR_CODE_RED} from "./css-config";
+import {COLOR_CODE_BLACK, COLOR_CODE_DARK, COLOR_CODE_RED, COLOR_CODE_WHITE} from "./css-config";
 import ContactFormButton from "./contact-form-button"
+import {slide as Menu} from 'react-burger-menu'
+import {isMobile} from 'react-device-detect';
+
+const burgerStyles = {
+    bmBurgerButton: {
+        position: 'fixed',
+        width: '36px',
+        height: '30px',
+        right: '36px',
+        top: '36px'
+    },
+    bmBurgerBars: {
+        background: '#373a47'
+    },
+    bmBurgerBarsHover: {
+        background: COLOR_CODE_RED
+    },
+    bmCrossButton: {
+        height: '24px',
+        width: '24px'
+    },
+    bmCross: {
+        background: COLOR_CODE_DARK
+    },
+    bmMenuWrap: {
+        position: 'fixed',
+        height: '100%',
+        right: '0'
+    },
+    bmMenu: {
+        background: COLOR_CODE_WHITE,
+        padding: '2.5em 1.5em 0',
+        fontSize: '1.15em'
+    },
+    bmMorphShape: {
+        fill: COLOR_CODE_DARK
+    },
+    bmItemList: {
+        color: COLOR_CODE_BLACK,
+        padding: '0.8em',
+        display: 'inline-block',
+    },
+    bmItem: {
+        // display: 'inline-block',
+    },
+    bmOverlay: {
+        background: 'rgba(0, 0, 0, 0.3)'
+    },
+}
 
 function Navbar({formState}) {
     const router = useRouter();
@@ -18,10 +66,11 @@ function Navbar({formState}) {
     const pathNameSplit = router.pathname.split('/');
     const language = pathNameSplit[1]
     const contactFormText = ["Contact Us", "Contact Us FI", "Записаться"][LANGUAGES.indexOf(language)];
-    console.log(pathNameSplit);
+    // console.log(pathNameSplit);
 
     const thisPage = pathNameSplit[pathNameSplit.length - 1];
-    console.log(thisPage);
+    // console.log(thisPage);
+    console.log(isMobile)
 
     const langLinks = LANGUAGES.map(lang => {
         return <Link href={'/' + [lang, ...router.pathname.split('/').slice(2)].join('/')}>
@@ -64,21 +113,9 @@ function Navbar({formState}) {
                             <Logo/>
                         </a>
                     </Link>
-
-                    <div className="icons">
-                        <a
-                            href="https://github.com/vanya6537/dance-republic"
-                            aria-label="Dance Republic on GitHub"
-                            rel="noopener noreferrer"
-                            target="_blank"
-                            className="icon mute"
-                        >
-                            <GitHubLogo color="currentColor"/>
-                        </a>
-                    </div>
                 </div>
 
-                <div className="links">
+                {isMobile && <div className="links">
                     <Link href={"/" + language}>
                         <a className="logo">
                             <Logo/>
@@ -107,9 +144,31 @@ function Navbar({formState}) {
                             {contactFormText}
                         </ContactFormButton>
                     </div>
-                </div>
+                </div>}
             </nav>
+            {!isMobile &&
+            <Menu right={true} pageWrapId={"full-page"} outerContainerId={'full-page'} styles={burgerStyles}>
+                <ul>{menuLinks.map((listItem, ind) => {
+                    return (<li key={ind}>{listItem}</li>)
+                })}
 
+                    <li key={'cf-btn-hamburger'}>
+                        <ContactFormButton id="cf-contact-us" onClick={e => {
+                            // console.log(formState.showModal)
+                            // setLoading(!loading);
+                            // if (formState.showModal){
+                            formState.toggleModal(true)
+                            // }
+                            document.getElementById('cf-contact-us').classList.add('loading');
+                            // setLoading(true);
+                            e.preventDefault();
+                        }}>
+                            {contactFormText}
+                        </ContactFormButton>
+                    </li>
+                    {langLinks}
+                </ul>
+            </Menu>}
             <style jsx>{`
         nav {
           position: relative;
@@ -232,6 +291,10 @@ function Navbar({formState}) {
          .lang-links > a {
                 margin: 10px;
             }
+           
+         .bm-item-list > a {
+            display: inline-block;
+         }
       `}</style>
         </Container>
     );

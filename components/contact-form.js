@@ -97,7 +97,7 @@ export default ({action = '/search', formState}) => {
                     <form onSubmit={handleSubmit} className="contact-form">
                         <PhoneInput
                             international
-                            defaultCountry={language.toUpperCase()}
+                            defaultCountry={defaultCountry}
                             // placeholder={["Enter phone number"]}
                             value={value}
                             onChange={checkValue}

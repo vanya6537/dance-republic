@@ -6,7 +6,7 @@ export default function Page({title, description, sticky, formState, isOldDocs, 
     // const [showModal, toggleModal] = useState(false);
     // const formPageState = {showModal, toggleModal}
     return (
-        <PageContainer title={title} description={description} formState={formState}>
+        <PageContainer id="full-page" title={title} description={description} formState={formState}>
             <Header sticky={sticky} isOldDocs={isOldDocs} formState={formState}/>
             {children}
         </PageContainer>
