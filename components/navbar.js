@@ -29,7 +29,9 @@ const burgerStyles = {
     bmCrossButton: {
         height: '24px',
         width: '24px',
-        right: '30px'
+        right: '30px',
+        bottom: '90px',
+        top: null
     },
     bmCross: {
         background: COLOR_CODE_DARK
@@ -38,11 +40,12 @@ const burgerStyles = {
         position: 'fixed',
         height: '100%',
         right: '0',
-        width: '100%'
+        width: '100%',
+        zIndex: 5
     },
     bmMenu: {
         background: COLOR_CODE_WHITE,
-        padding: '2.5em 1.5em 0',
+        padding: '0',
         fontSize: '1.15em'
     },
     bmMorphShape: {
@@ -148,7 +151,8 @@ function Navbar({formState}) {
                 </div>}
             </nav>
             {isMobile &&
-            <Menu id='burger-menu-wrapper' right={true} pageWrapId={"full-page"} outerContainerId={'full-page'}
+            <Menu noOverlay id='burger-menu-wrapper' right={true} pageWrapId={"full-page"}
+                  outerContainerId={'full-page'}
                   styles={burgerStyles}>
                 <ul className="f2">
                     <li>
@@ -167,9 +171,9 @@ function Navbar({formState}) {
                             formState.toggleModal(true)
                             // }
                             document.getElementById('cf-contact-us').classList.add('loading');
-                            const overlay = document.getElementsByClassName('bm-overlay')[0];
-                            overlay.style.transform = 'translate3d(100%, 0px, 0px)';
-                            overlay.style.opacity = 0;
+                            // const overlay = document.getElementsByClassName('bm-overlay')[0];
+                            // overlay.style.transform = 'translate3d(100%, 0px, 0px)';
+                            // overlay.style.opacity = 0;
                             document.getElementById('burger-menu-wrapper').style.transform = 'translate3d(100%, 0px, 0px)';
 
                             // setLoading(true);
@@ -238,7 +242,7 @@ function Navbar({formState}) {
         }
         
         .langs {
-          width: 70px;
+          width: 90px;
           display: flex;
           // align-items: center;
           justify-content: space-between;

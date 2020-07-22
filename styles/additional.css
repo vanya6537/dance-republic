@@ -12,27 +12,35 @@
 }
 
 #hero-img {
-    transform: translateX(-10%);
+  transform: translateX(-10%);
 }
 
 ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 30px 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.bm-menu {
+  padding: 0;
 }
 
 @media (max-width: 480px) {
-    #cf-contact-us {
-        margin: 40px 0 10px 0;
-    }
+  #cf-contact-us {
+    margin: 20px 0 10px 0;
+  }
 
-    .bm-item-list ul li {
-        margin: 10px 0;
-    }
+  .bm-item-list ul {
+    outline: none;
+  }
 
-    .bm-item-list ul a {
-        margin: 5px;
-    }
+  .bm-item-list ul li {
+    margin: 7px 0;
+  }
+
+  .bm-item-list ul a {
+    margin: 5px;
+  }
 }
 
 /*# sourceMappingURL=additional.css.map */
