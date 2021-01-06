@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@reach/skip-nav": "^0.10.4",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "eslint": "^7.5.0",
     "eslint-config-airbnb": "^18.2.0",
