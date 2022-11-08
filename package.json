@@ -20,7 +20,7 @@
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react": "^7.20.3",
-    "next": "9.3.5",
+    "next": "13.0.2",
     "nprogress": "^0.2.0",
     "prop-types": "^15.7.2",
     "react": "^16.8",
@@ -31,7 +31,7 @@
     "react-phone-number-input": "^3.0.24",
     "request": "^2.88.2",
     "styled-components": "^5.0.0",
-    "styled-jsx": "^3.3.0"
+    "styled-jsx": "^5.1.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.7.0",
